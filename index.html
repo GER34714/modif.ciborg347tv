@@ -9,6 +9,7 @@
         :root {
             --primary: #007bff;
             --bg: #0f172a;
+            --card: #1e293b;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,8 +25,33 @@
             overflow-x: hidden;
         }
 
-        header { padding: 15px; text-align: center; width: 100%; }
+        header { 
+            padding: 15px; 
+            text-align: center; 
+            width: 100%; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 10px;
+            align-items: center;
+        }
+        
         .logo { font-weight: bold; font-size: 1.2rem; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; }
+
+        /* BOTÓN DE INICIO */
+        .btn-inicio {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+        }
+        .btn-inicio:active { transform: scale(0.95); }
 
         .container {
             width: 100%;
@@ -33,11 +59,10 @@
             padding: 10px;
         }
 
-        /* MARCO DEL REPRODUCTOR */
+        /* MARCO DEL REPRODUCTOR (PC) */
         .player-window {
             position: relative;
             width: 100%;
-            /* Altura adaptativa: en PC 500px, en móvil se ajusta al ancho */
             height: 500px; 
             background: #000;
             border-radius: 15px;
@@ -48,40 +73,30 @@
 
         .player-window iframe {
             position: absolute;
-            /* RECORTE FIJO: mantenemos el de PC para que no se desfase */
             top: -110px; 
             left: 0;
-            /* Forzamos un ancho de escritorio para que la web no active su modo móvil */
-            width: 1280px; 
-            height: 800px; 
+            width: 1200px; /* Forzamos ancho de PC */
+            height: 850px; 
             border: none;
-            
-            /* Ajustamos la escala para que esos 1280px entren en el ancho de tu contenedor */
-            transform: scale(0.7); 
+            transform: scale(0.75); /* Ajuste inicial para PC */
             transform-origin: top left;
         }
 
         .footer-info { margin-top: 30px; text-align: center; font-size: 0.9rem; opacity: 0.7; }
         .brand { color: var(--primary); text-decoration: none; font-weight: bold; }
 
-        /* AJUSTE DINÁMICO PARA MÓVILES */
+        /* AJUSTE DINÁMICO PARA MÓVILES (HACER QUE SE VEA COMO EN PC) */
         @media (max-width: 600px) {
             .player-window { 
-                height: 250px; /* Altura más baja para que el video encuadre en móvil */
+                height: 230px; /* Altura perfecta para el video escalado */
             }
             .player-window iframe { 
-                /* Zoom out agresivo para que la web de PC entre en la pantallita del cel */
-                transform: scale(0.31); 
-                top: -90px;
+                /* Zoom out para que la web de 1200px entre en el cel */
+                transform: scale(0.315); 
+                top: -95px; /* Ajuste fino del corte superior en móvil */
                 left: 0;
             }
-        }
-
-        /* Si es una tablet o pantalla mediana */
-        @media (min-width: 601px) and (max-width: 900px) {
-            .player-window iframe {
-                transform: scale(0.5);
-            }
+            .logo { font-size: 1rem; }
         }
     </style>
 </head>
@@ -89,6 +104,7 @@
 
     <header>
         <div class="logo">Ciborg 347 TV</div>
+        <button class="btn-inicio" onclick="window.location.reload()">Inicio</button>
     </header>
 
     <main class="container">
