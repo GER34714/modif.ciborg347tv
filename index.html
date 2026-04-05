@@ -3,72 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ciborg 347 TV - Pro View</title>
+    <title>Ciborg 347 TV - Menú de Canales</title>
+    
+    <meta property="og:title" content="Ciborg 347 TV - Selección de Canales">
+    <meta property="og:description" content="Elegí tu canal favorito. Simple y profesional.">
 
     <style>
         :root {
             --primary: #007bff;
             --bg: #0f172a;
+            --text: #f1f5f9;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
         body {
             background-color: var(--bg);
-            color: #f1f5f9;
-            font-family: sans-serif;
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
         }
 
-        header { padding: 15px; text-align: center; width: 100%; }
-        .logo { font-weight: bold; font-size: 1.2rem; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; }
-
-        .container {
+        header {
+            padding: 20px;
             width: 100%;
-            max-width: 1000px; /* Un poco más ancho */
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.4rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Contenedor principal centrado */
+        .container {
+            width: 95%;
+            max-width: 1100px;
+            margin: 30px auto;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Grilla de Canales - Estilo Ciborg 347 */
+        .channel-grid {
+            display: grid;
+            /* Crea columnas de tamaño automático con un ancho mínimo de 100px */
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 20px;
+            width: 100%;
             padding: 10px;
         }
 
-        /* VENTANA MÁS GRANDE */
-        .player-window {
-            position: relative;
+        /* Cada canal (el enlace) */
+        .channel-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            aspect-ratio: 1 / 1; /* Cuadrado */
+            padding: 15px;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .channel-item:hover {
+            border-color: rgba(0, 123, 255, 0.4);
+            transform: translateY(-5px);
+            background: rgba(0, 123, 255, 0.05);
+        }
+
+        /* El logo dentro del canal */
+        .channel-item img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* Mantiene la proporción del logo */
+            filter: grayscale(10%) contrast(110%);
+        }
+
+        footer {
+            padding: 30px;
+            text-align: center;
+            font-size: 0.85rem;
             width: 100%;
-            height: 700px; /* Aumentamos la altura para que se vea más abajo */
-            background: #000;
-            border-radius: 15px;
-            overflow: hidden;
-            border: 2px solid rgba(0, 123, 255, 0.3);
-            box-shadow: 0 10px 60px rgba(0,0,0,0.8);
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
 
-        .player-window iframe {
-            position: absolute;
-            top: -100px; /* Ajuste del corte superior */
-            left: -10%; /* Ajuste lateral por el zoom */
-            width: 120%; /* Ancho mayor para compensar el zoom */
-            height: 950px; 
-            border: none;
-            
-            /* ZOOM: Agrandamos la web embebida */
-            transform: scale(1.2); 
-            transform-origin: top center;
+        .brand-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
         }
 
-        .footer-info { margin-top: 20px; text-align: center; padding: 20px; }
-        .brand { color: var(--primary); text-decoration: none; font-weight: bold; }
-
-        /* Ajuste para celulares */
+        /* Ajustes para celulares */
         @media (max-width: 600px) {
-            .player-window { height: 500px; }
-            .player-window iframe { 
-                top: -85px; 
-                width: 130%; 
-                left: -15%;
-                transform: scale(1.3); /* Más zoom en móvil */
+            .channel-grid {
+                grid-template-columns: repeat(4, 1fr); /* 4 columnas fijas en móvil */
+                gap: 10px;
             }
+            .channel-item { padding: 8px; }
         }
     </style>
 </head>
@@ -79,22 +127,27 @@
     </header>
 
     <main class="container">
-        <div class="player-window">
-            <iframe 
-                src="https://telefullhd.net/tbs-en-vivo/" 
-                scrolling="no" 
-                allowfullscreen="true"
-                allow="autoplay; encrypted-media"
-                sandbox="allow-scripts allow-same-origin allow-forms"
-                title="Ciborg 347 TV">
-            </iframe>
-        </div>
+        <div class="channel-grid">
+            
+            <a href="URL_AL_REPRODUCTOR_DE_TNT.html" class="channel-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/TNT_Network_Logo.svg" alt="TNT">
+            </a>
+
+            <a href="URL_AL_REPRODUCTOR_DE_HISTORY.html" class="channel-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/The_History_Channel_logo_used_until_2008.svg" alt="History">
+            </a>
+
+            <a href="URL_AL_REPRODUCTOR_DE_SYFY.html" class="channel-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Syfy_Logo.svg" alt="Syfy">
+            </a>
+
+            </div>
     </main>
 
-    <div class="footer-info">
+    <footer>
         <p>Trabajo creando y diseñando sitios web</p>
-        <p>© 2026 - <a href="https://ciborg347oficial.onrender.com" class="brand">Ciborg 347</a></p>
-    </div>
+        <p>© 2026 - <a href="https://ciborg347oficial.onrender.com" class="brand-link">Ciborg 347</a></p>
+    </footer>
 
 </body>
 </html>
