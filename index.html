@@ -1,286 +1,113 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Ciborg 347 TV - Live</title>
-  <meta name="description" content="Ciborg 347 TV - reproductor en vivo responsive." />
-  <meta property="og:title" content="Ciborg 347 TV - Live" />
-  <meta property="og:description" content="Reproductor en vivo responsive de Ciborg 347 TV." />
-  <meta property="og:type" content="website" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ciborg 347 TV - Live</title>
 
-  <style>
-    :root {
-      --primary: #007bff;
-      --bg: #0f172a;
-      --card: #020817;
-      --text: #f1f5f9;
-      --muted: rgba(241, 245, 249, 0.72);
+    <style>
+        :root {
+            --primary: #007bff;
+            --bg: #0f172a;
+        }
 
-      /* AJUSTES DESKTOP */
-      --frame-radius: 18px;
-      --frame-height: clamp(460px, 68vh, 760px);
-      --crop-top: 120px;         /* cuanto se sube el iframe */
-      --extra-bottom: 300px;     /* altura extra para mostrar mas zona inferior */
-      --top-shield: 70px;        /* tapa fija superior para que no aparezca arriba */
-    }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+        body {
+            background-color: var(--bg);
+            color: #f1f5f9;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-    html, body {
-      width: 100%;
-      overflow-x: hidden;
-    }
+        header { padding: 15px; text-align: center; width: 100%; }
+        .logo { font-weight: bold; font-size: 1.2rem; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; }
 
-    body {
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at top, rgba(0, 123, 255, 0.12), transparent 35%),
-        var(--bg);
-      color: var(--text);
-      font-family: Arial, Helvetica, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+        .container {
+            width: 100%;
+            max-width: 900px;
+            padding: 10px;
+        }
 
-    header {
-      width: 100%;
-      padding: 18px 14px 10px;
-      text-align: center;
-    }
+        /* MARCO DEL REPRODUCTOR */
+        .player-window {
+            position: relative;
+            width: 100%;
+            /* Altura adaptativa: en PC 500px, en móvil se ajusta al ancho */
+            height: 500px; 
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid rgba(0, 123, 255, 0.2);
+            box-shadow: 0 10px 50px rgba(0,0,0,0.7);
+        }
 
-    .logo {
-      color: var(--primary);
-      font-weight: 800;
-      font-size: clamp(1.1rem, 2vw, 1.4rem);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
+        .player-window iframe {
+            position: absolute;
+            /* RECORTE FIJO: mantenemos el de PC para que no se desfase */
+            top: -110px; 
+            left: 0;
+            /* Forzamos un ancho de escritorio para que la web no active su modo móvil */
+            width: 1280px; 
+            height: 800px; 
+            border: none;
+            
+            /* Ajustamos la escala para que esos 1280px entren en el ancho de tu contenedor */
+            transform: scale(0.7); 
+            transform-origin: top left;
+        }
 
-    .container {
-      width: 100%;
-      max-width: 1100px;
-      padding: 10px 14px 30px;
-      margin: 0 auto;
-    }
+        .footer-info { margin-top: 30px; text-align: center; font-size: 0.9rem; opacity: 0.7; }
+        .brand { color: var(--primary); text-decoration: none; font-weight: bold; }
 
-    .player-shell {
-      position: relative;
-      width: 100%;
-      border-radius: var(--frame-radius);
-      padding: 10px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.45),
-        inset 0 1px 0 rgba(255,255,255,0.04);
-      overflow: hidden;
-    }
+        /* AJUSTE DINÁMICO PARA MÓVILES */
+        @media (max-width: 600px) {
+            .player-window { 
+                height: 250px; /* Altura más baja para que el video encuadre en móvil */
+            }
+            .player-window iframe { 
+                /* Zoom out agresivo para que la web de PC entre en la pantallita del cel */
+                transform: scale(0.31); 
+                top: -90px;
+                left: 0;
+            }
+        }
 
-    .player-shell::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      border-radius: inherit;
-      box-shadow: inset 0 0 0 1px rgba(0, 123, 255, 0.12);
-    }
-
-    .player-window {
-      position: relative;
-      width: 100%;
-      height: var(--frame-height);
-      background: #000;
-      border-radius: calc(var(--frame-radius) - 6px);
-      overflow: hidden;
-      isolation: isolate;
-    }
-
-    .player-window iframe {
-      position: absolute;
-      top: calc(var(--crop-top) * -1);
-      left: 0;
-      width: 100%;
-      height: calc(100% + var(--crop-top) + var(--extra-bottom));
-      border: 0;
-      display: block;
-      background: #000;
-    }
-
-    /* Franja fija superior para ocultar la parte de arriba aunque el contenido interno se desplace */
-    .top-cover {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: var(--top-shield);
-      z-index: 3;
-      pointer-events: none;
-      background:
-        linear-gradient(
-          180deg,
-          rgba(0, 0, 0, 1) 0%,
-          rgba(0, 0, 0, 0.98) 55%,
-          rgba(0, 0, 0, 0.82) 78%,
-          rgba(0, 0, 0, 0) 100%
-        );
-    }
-
-    .player-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(0, 123, 255, 0.12);
-      border: 1px solid rgba(0, 123, 255, 0.18);
-      color: #dbeafe;
-      font-size: 0.92rem;
-      font-weight: 700;
-    }
-
-    .player-badge::before {
-      content: "";
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #22c55e;
-      box-shadow: 0 0 12px rgba(34, 197, 94, 0.8);
-      flex: 0 0 auto;
-    }
-
-    .note {
-      margin-top: 14px;
-      text-align: center;
-      font-size: 0.92rem;
-      color: var(--muted);
-      line-height: 1.45;
-      padding: 0 6px;
-    }
-
-    .footer-info {
-      width: 100%;
-      margin-top: auto;
-      padding: 26px 16px 30px;
-      text-align: center;
-      font-size: 0.95rem;
-      color: var(--muted);
-    }
-
-    .footer-info p + p {
-      margin-top: 8px;
-    }
-
-    .brand {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 800;
-    }
-
-    @media (max-width: 900px) {
-      :root {
-        --frame-height: clamp(360px, 62vh, 620px);
-        --crop-top: 128px;
-        --extra-bottom: 360px;
-        --top-shield: 74px;
-      }
-
-      .container {
-        padding-left: 12px;
-        padding-right: 12px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      :root {
-        --frame-radius: 16px;
-        --frame-height: 72vh;
-        --crop-top: 138px;
-        --extra-bottom: 430px;
-        --top-shield: 84px;
-      }
-
-      header {
-        padding: 16px 12px 8px;
-      }
-
-      .logo {
-        font-size: 1rem;
-        letter-spacing: 1.6px;
-      }
-
-      .container {
-        padding: 8px 10px 24px;
-      }
-
-      .player-shell {
-        padding: 8px;
-      }
-
-      .player-badge {
-        width: 100%;
-        justify-content: center;
-        font-size: 0.88rem;
-      }
-
-      .note {
-        font-size: 0.88rem;
-      }
-
-      .footer-info {
-        font-size: 0.88rem;
-        padding-bottom: 24px;
-      }
-    }
-
-    @media (max-width: 420px) {
-      :root {
-        --frame-height: 74vh;
-        --crop-top: 145px;
-        --extra-bottom: 480px;
-        --top-shield: 88px;
-      }
-    }
-  </style>
+        /* Si es una tablet o pantalla mediana */
+        @media (min-width: 601px) and (max-width: 900px) {
+            .player-window iframe {
+                transform: scale(0.5);
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <div class="logo">Ciborg 347 TV</div>
-  </header>
+    <header>
+        <div class="logo">Ciborg 347 TV</div>
+    </header>
 
-  <main class="container">
-    <div class="player-badge">En vivo</div>
+    <main class="container">
+        <div class="player-window">
+            <iframe 
+                src="https://telefullhd.net/tbs-en-vivo/" 
+                scrolling="no" 
+                allowfullscreen="true"
+                allow="autoplay; encrypted-media"
+                sandbox="allow-scripts allow-same-origin allow-forms"
+                title="Ciborg 347 TV">
+            </iframe>
+        </div>
+    </main>
 
-    <div class="player-shell">
-      <div class="player-window">
-        <iframe
-          src="https://telefullhd.net/tbs-en-vivo/"
-          allowfullscreen
-          allow="autoplay; encrypted-media"
-          sandbox="allow-scripts allow-same-origin allow-forms"
-          title="Ciborg 347 TV">
-        </iframe>
-        <div class="top-cover"></div>
-      </div>
+    <div class="footer-info">
+        <p>Trabajo creando y diseñando sitios web</p>
+        <p>© 2026 - <a href="https://ciborg347oficial.onrender.com" class="brand">Ciborg 347</a></p>
     </div>
-
-    <p class="note">
-      El recorte superior quedo mas tapado y la ventana muestra mas zona inferior del embebido.
-      Si la pagina externa permite desplazamiento interno, se va a poder mover dentro del marco, pero la franja superior quedara visualmente oculta.
-    </p>
-  </main>
-
-  <footer class="footer-info">
-    <p>Trabajo creando y diseñando sitios web</p>
-    <p>© 2026 - <a href="https://ciborg347oficial.onrender.com" class="brand">Ciborg 347</a></p>
-  </footer>
 
 </body>
 </html>
