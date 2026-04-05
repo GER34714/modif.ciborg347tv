@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ciborg 347 TV - Live</title>
+    <title>Ciborg 347 TV - Home</title>
 
     <style>
         :root {
@@ -56,11 +56,11 @@
             padding: 10px;
         }
 
+        /* MARCO AJUSTADO AL MENÚ DE LOGOS */
         .player-window {
             position: relative;
             width: 100%;
-            /* Altura ajustada para que corte justo al final de los logos */
-            height: 620px; 
+            height: 560px; /* Altura optimizada para la grilla de logos */
             background: #fff;
             border-radius: 15px;
             overflow: hidden;
@@ -70,11 +70,11 @@
 
         .player-window iframe {
             position: absolute;
-            /* Subimos un poco para que no sobre espacio blanco arriba */
-            top: -65px; 
+            /* RECORTE SUPERIOR AGRESIVO: Sube la web para ocultar banner y botones sociales */
+            top: -155px; 
             left: 0;
             width: 155%; 
-            height: 1100px; 
+            height: 1200px; 
             border: none;
             transform: scale(0.65); 
             transform-origin: top left;
@@ -84,10 +84,10 @@
         .brand { color: var(--primary); text-decoration: none; font-weight: bold; }
 
         @media (max-width: 600px) {
-            .player-window { height: 420px; }
+            .player-window { height: 380px; }
             .player-window iframe { 
                 transform: scale(0.28); 
-                top: -55px; 
+                top: -135px; /* Ajuste para móvil */
                 width: 360%; 
             }
         }
@@ -97,18 +97,17 @@
 
     <header>
         <div class="logo">Ciborg 347 TV</div>
-        <button class="btn-inicio" onclick="window.location.reload()">Recargar Reproductor</button>
+        <button class="btn-inicio" onclick="window.location.reload()">Actualizar Lista</button>
     </header>
 
     <main class="container">
         <div class="player-window">
             <iframe 
-                src="https://telefullhd.net/tbs-en-vivo/" 
+                src="https://telefullhd.net/" 
                 scrolling="no" 
                 allowfullscreen="true"
-                allow="autoplay; encrypted-media"
                 sandbox="allow-scripts allow-same-origin allow-forms"
-                title="Ciborg 347 TV">
+                title="Ciborg 347 TV - Menú">
             </iframe>
         </div>
     </main>
