@@ -49,7 +49,6 @@
             box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
             transition: 0.2s;
         }
-        .btn-inicio:active { transform: scale(0.95); }
 
         .container {
             width: 100%;
@@ -57,12 +56,12 @@
             padding: 10px;
         }
 
-        /* MARCO DEL REPRODUCTOR */
         .player-window {
             position: relative;
             width: 100%;
-            height: 700px; 
-            background: #000;
+            /* Altura ajustada para que corte justo al final de los logos */
+            height: 620px; 
+            background: #fff;
             border-radius: 15px;
             overflow: hidden;
             border: 2px solid rgba(0, 123, 255, 0.2);
@@ -71,14 +70,12 @@
 
         .player-window iframe {
             position: absolute;
-            /* AJUSTE: Menos negativo para que los canales bajen */
-            top: -50px; 
+            /* Subimos un poco para que no sobre espacio blanco arriba */
+            top: -65px; 
             left: 0;
             width: 155%; 
-            height: 1300px; 
+            height: 1100px; 
             border: none;
-            
-            /* MANTENEMOS EL ZOOM QUE TE GUSTÓ */
             transform: scale(0.65); 
             transform-origin: top left;
         }
@@ -86,15 +83,11 @@
         .footer-info { margin-top: 30px; text-align: center; font-size: 0.9rem; opacity: 0.7; }
         .brand { color: var(--primary); text-decoration: none; font-weight: bold; }
 
-        /* AJUSTE PARA MÓVILES */
         @media (max-width: 600px) {
-            .player-window { 
-                height: 480px; 
-            }
+            .player-window { height: 420px; }
             .player-window iframe { 
                 transform: scale(0.28); 
-                /* Ajuste fino para que en móvil tampoco queden altos */
-                top: -40px; 
+                top: -55px; 
                 width: 360%; 
             }
         }
@@ -127,4 +120,3 @@
 
 </body>
 </html>
-
