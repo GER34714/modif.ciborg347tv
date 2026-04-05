@@ -4,92 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ciborg 347 TV - Live</title>
-    
-    <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
-
     <style>
         :root {
             --primary: #007bff;
             --bg: #0f172a;
-            --text: #f1f5f9;
         }
 
         body {
             margin: 0;
-            padding: 0;
             background-color: var(--bg);
-            color: var(--text);
+            color: white;
             font-family: sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
+            overflow: hidden;
         }
 
         header {
-            padding: 20px;
+            padding: 15px;
             text-align: center;
             width: 100%;
         }
 
         .logo {
             font-weight: bold;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: var(--primary);
             text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        .player-container {
+        /* Contenedor para recortar y mostrar solo el video */
+        .embed-container {
             width: 95%;
             max-width: 900px;
             aspect-ratio: 16 / 9;
             background: #000;
-            border-radius: 12px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 2px solid rgba(0, 123, 255, 0.3);
+            box-shadow: 0 10px 50px rgba(0,0,0,0.8);
             position: relative;
         }
 
-        video {
+        /* El iframe apunta a la web de la opción 2 que es más estable */
+        iframe {
             width: 100%;
             height: 100%;
-            outline: none;
+            border: none;
         }
 
-        .info {
+        .footer-info {
             margin-top: 20px;
             text-align: center;
-            padding: 0 20px;
-        }
-
-        footer {
-            margin-top: auto;
-            padding: 30px;
             font-size: 0.9rem;
-            opacity: 0.8;
+            opacity: 0.7;
         }
 
-        .brand-color {
+        .brand {
             color: var(--primary);
-            font-weight: bold;
             text-decoration: none;
-        }
-
-        /* Botón de WhatsApp flotante */
-        .wsp-link {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            background-color: #25d366;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            z-index: 100;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -99,39 +76,21 @@
         <div class="logo">Ciborg 347 TV</div>
     </header>
 
-    <div class="player-container">
-        <video id="videoPlayer" controls autoplay playsinline></video>
+    <div class="embed-container">
+        <iframe 
+            src="https://telefullhd.net/tbs-en-vivo/" 
+            allowfullscreen="true" 
+            scrolling="no" 
+            allow="autoplay; encrypted-media"
+            sandbox="allow-scripts allow-same-origin allow-forms"
+            title="Ciborg 347 TV Player">
+        </iframe>
     </div>
 
-    <div class="info">
-        <h2>Señal en Vivo: TBS</h2>
-        <p>Trabajo creando y diseñando sitios web profesionales.</p>
+    <div class="footer-info">
+        <p>Trabajo creando y diseñando sitios web</p>
+        <p>© 2026 - <a href="https://ciborg347oficial.onrender.com" class="brand">Ciborg 347</a></p>
     </div>
 
-    <a href="https://wa.me/TUNUMERO" class="wsp-link" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="35" alt="WhatsApp">
-    </a>
-
-    <footer>
-        <p>© 2026 - <a href="https://ciborg347oficial.onrender.com" class="brand-color">Ciborg 347</a></p>
-    </footer>
-
-    <script>
-        (function(){
-            // El link mágico que encontraste
-            const url = "https://edge-live16-sl.cvattv.com.ar/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzc1NTQ1MDg3Iiwic2lwIjoiMTY4LjE5NC4yMzIuMzkiLCJwYXRoIjoiL2xpdmUvYzZlZHMvVEJTL1NBX0xpdmVfZGFzaF9lbmNfQy8iLCJzZXNzaW9uX2Nkbl9pZCI6ImY3ODdjN2IyMjZmNDcwMDAiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE4MS4xMi4zNi4xNTAiLCJhdWQiOiIxMDUiLCJzb3VyY2VzIjpbODUsMTQ0LDg2LDg4XX0=.LjHXZ0Vw86dh9RC8AVvuTiq80KrgeG16-ZapYL4XnzG26oJnyr6mTZUx8U-a_HBPIXU1TtA9EPZyeNWhBQaaQQ==/live/c6eds/TBS/SA_Live_dash_enc_C/TBS.mpd";
-            
-            const video = document.querySelector("#videoPlayer");
-            const player = dashjs.MediaPlayer().create();
-            
-            // Inicialización del player
-            player.initialize(video, url, true);
-
-            // Manejo de errores básico
-            player.on(dashjs.MediaPlayer.events.ERROR, function(e) {
-                console.error("Error en la transmisión:", e);
-            });
-        })();
-    </script>
 </body>
 </html>
