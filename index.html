@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ciborg 347 TV - Simple y Profesional</title>
     
+    <meta name="referrer" content="no-referrer">
     <meta property="og:title" content="Ciborg 347 TV - Visualizador Premium">
-    <meta property="og:description" content="Accedé a contenido en vivo con la mejor calidad y sin publicidad intrusiva.">
+    <meta property="og:description" content="Accedé a contenido en vivo con la mejor calidad.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ciborg347oficial.onrender.com">
 
@@ -27,7 +28,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-light);
             line-height: 1.6;
@@ -58,7 +59,6 @@
             font-size: 1.2rem;
             color: var(--primary-color);
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
         .theme-toggle {
@@ -70,12 +70,6 @@
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .theme-toggle:hover {
-            background: var(--primary-color);
-            color: white;
         }
 
         .container {
@@ -86,7 +80,6 @@
             padding: 0 1rem 2rem 1rem;
         }
 
-        /* Contenedor del Reproductor Estilo Ciborg 347 */
         .player-wrapper {
             position: relative;
             width: 100%;
@@ -112,20 +105,6 @@
             text-align: center;
         }
 
-        .info-panel h1 {
-            font-size: 1.6rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .instructions {
-            font-size: 0.9rem;
-            opacity: 0.7;
-            margin-bottom: 2rem;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
         .btn-whatsapp {
             display: inline-flex;
             align-items: center;
@@ -136,12 +115,8 @@
             text-decoration: none;
             font-weight: bold;
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-            transition: transform 0.2s;
         }
 
-        .btn-whatsapp:active { transform: scale(0.95); }
-
-        /* Botón Flotante de WhatsApp */
         .wsp-float {
             position: fixed;
             bottom: 25px;
@@ -155,37 +130,25 @@
             justify-content: center;
             box-shadow: 2px 4px 15px rgba(0,0,0,0.4);
             z-index: 100;
-            transition: transform 0.2s;
         }
 
-        .wsp-float:hover { transform: scale(1.1); }
         .wsp-float img { width: 32px; }
 
         footer {
-            padding: 2.5rem 1rem;
+            padding: 2rem 1rem;
             text-align: center;
             font-size: 0.85rem;
             border-top: 1px solid rgba(255,255,255,0.05);
-            margin-top: auto;
         }
 
-        footer .brand {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        @media (max-width: 600px) {
-            .info-panel h1 { font-size: 1.3rem; }
-            .wsp-float { width: 50px; height: 50px; bottom: 20px; right: 20px; }
-        }
+        footer span { color: var(--primary-color); font-weight: bold; }
     </style>
 </head>
 <body>
 
     <header>
         <div class="logo">Ciborg 347 TV</div>
-        <button class="theme-toggle" onclick="toggleTheme()">MODO LUZ/OSCURO</button>
+        <button class="theme-toggle" onclick="toggleTheme()">TEMA</button>
     </header>
 
     <main class="container">
@@ -194,17 +157,17 @@
                 src="https://cointv.site/embed/tbs.php?opcion=2" 
                 allowfullscreen="true" 
                 scrolling="no" 
+                referrerpolicy="no-referrer"
                 sandbox="allow-scripts allow-same-origin allow-forms"
-                title="Reproductor en vivo">
+                title="Reproductor Ciborg 347 TV">
             </iframe>
         </div>
 
         <div class="info-panel">
             <h1>Señal en Vivo</h1>
-            <p class="instructions">Estamos transmitiendo con la mejor estabilidad. Si la señal se corta, recargá la página.</p>
-            
+            <p style="margin-bottom: 1.5rem; opacity: 0.7;">Si ves un error 403, intentá abrir el sitio en modo incógnito.</p>
             <a href="https://wa.me/TUNUMERO" class="btn-whatsapp" target="_blank">
-                ¿PROBLEMAS CON EL VIDEO? AVISANOS
+                REPORTAR ERROR DE SEÑAL
             </a>
         </div>
     </main>
@@ -215,18 +178,13 @@
 
     <footer>
         <p>Trabajo creando y diseñando sitios web</p>
-        <p>© 2026 - Desarrollado por <a href="https://ciborg347oficial.onrender.com" class="brand">Ciborg 347</a></p>
+        <p>© 2026 - Desarrollado por <a href="https://ciborg347oficial.onrender.com" style="color: #007bff; text-decoration: none;"><span>Ciborg 347</span></a></p>
     </footer>
 
     <script>
         function toggleTheme() {
             document.body.classList.toggle('light-mode');
         }
-
-        // Bloqueo simple para mejorar experiencia en móvil
-        document.querySelector('iframe').addEventListener('touchmove', function(e) {
-            e.stopPropagation();
-        }, false);
     </script>
 </body>
 </html>
