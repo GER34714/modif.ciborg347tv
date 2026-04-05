@@ -9,7 +9,6 @@
         :root {
             --primary: #007bff;
             --bg: #0f172a;
-            --card: #1e293b;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -37,7 +36,6 @@
         
         .logo { font-weight: bold; font-size: 1.2rem; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; }
 
-        /* BOTÓN DE INICIO */
         .btn-inicio {
             background-color: var(--primary);
             color: white;
@@ -48,10 +46,8 @@
             cursor: pointer;
             text-transform: uppercase;
             font-size: 0.8rem;
-            transition: 0.3s;
             box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
         }
-        .btn-inicio:active { transform: scale(0.95); }
 
         .container {
             width: 100%;
@@ -59,11 +55,11 @@
             padding: 10px;
         }
 
-        /* MARCO DEL REPRODUCTOR (PC) */
+        /* MARCO DEL REPRODUCTOR */
         .player-window {
             position: relative;
             width: 100%;
-            height: 500px; 
+            height: 550px; /* Un poco más de altura para los botones */
             background: #000;
             border-radius: 15px;
             overflow: hidden;
@@ -73,30 +69,29 @@
 
         .player-window iframe {
             position: absolute;
-            top: -110px; 
+            /* AJUSTE: Bajamos el recorte para que se vea el inicio de la web original */
+            top: -80px; 
             left: 0;
-            width: 1200px; /* Forzamos ancho de PC */
-            height: 850px; 
+            width: 1200px; 
+            height: 900px; 
             border: none;
-            transform: scale(0.75); /* Ajuste inicial para PC */
+            transform: scale(0.75); 
             transform-origin: top left;
         }
 
         .footer-info { margin-top: 30px; text-align: center; font-size: 0.9rem; opacity: 0.7; }
         .brand { color: var(--primary); text-decoration: none; font-weight: bold; }
 
-        /* AJUSTE DINÁMICO PARA MÓVILES (HACER QUE SE VEA COMO EN PC) */
+        /* AJUSTE PARA MÓVILES */
         @media (max-width: 600px) {
             .player-window { 
-                height: 230px; /* Altura perfecta para el video escalado */
+                height: 280px; 
             }
             .player-window iframe { 
-                /* Zoom out para que la web de 1200px entre en el cel */
                 transform: scale(0.315); 
-                top: -95px; /* Ajuste fino del corte superior en móvil */
+                top: -70px; /* Ajuste proporcional para móvil */
                 left: 0;
             }
-            .logo { font-size: 1rem; }
         }
     </style>
 </head>
@@ -104,7 +99,7 @@
 
     <header>
         <div class="logo">Ciborg 347 TV</div>
-        <button class="btn-inicio" onclick="window.location.reload()">Inicio</button>
+        <button class="btn-inicio" onclick="window.location.reload()">Recargar Reproductor</button>
     </header>
 
     <main class="container">
