@@ -3,103 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ciborg 347 TV - Home</title>
+    <title>Ciborg 347 TV - Live</title>
 
     <style>
         :root {
             --primary: #007bff;
             --bg: #0f172a;
+            --text: #f1f5f9;
+            --desktop-width: 1280px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
         body {
             background-color: var(--bg);
-            color: #f1f5f9;
-            font-family: sans-serif;
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden; /* Evita el scroll general de la página */
         }
 
-        header { 
-            padding: 10px; 
-            text-align: center; 
-            width: 100%; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 8px;
-            align-items: center;
-            z-index: 10;
+        header {
+            padding: 15px 12px;
+            text-align: center;
+            width: 100%;
         }
-        
-        .logo { font-weight: bold; font-size: 1.1rem; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; }
 
-        .btn-inicio {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 6px 18px;
-            border-radius: 20px;
+        .logo {
             font-weight: bold;
-            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--primary);
             text-transform: uppercase;
-            font-size: 0.75rem;
-            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+            letter-spacing: 2px;
         }
 
         .container {
             width: 100%;
-            max-width: 1000px; 
-            padding: 5px;
-            flex: 1;
-            display: flex;
-            justify-content: center;
+            max-width: 980px;
+            padding: 10px;
+            margin: 0 auto;
         }
 
-        /* VISTA PRINCIPAL: Recorta el Footer y el Hero */
-        .viewport-crop {
+        .player-window {
             position: relative;
             width: 100%;
-            height: 80vh; /* Altura de la ventana visible */
-            background: #fff;
+            height: 500px;
+            background: #000;
             border-radius: 15px;
-            overflow: hidden; /* Esto tapa el footer original */
+            overflow: hidden;
             border: 2px solid rgba(0, 123, 255, 0.2);
+            box-shadow: 0 10px 50px rgba(0,0,0,0.7);
         }
 
-        /* CONTENEDOR DE SCROLL: Permite moverte entre canales */
-        .scroll-container {
-            width: 100%;
-            height: 100%;
-            overflow-y: auto; /* Permite escrolear solo la grilla */
-            -webkit-overflow-scrolling: touch;
-        }
-
-        /* IFRAME: Recorte del Hero superior */
         .player-window iframe {
-            display: block;
-            width: 155%; 
-            height: 2500px; /* Altura suficiente para cargar todos los canales */
+            position: absolute;
+            top: -110px;
+            left: 0;
+            width: var(--desktop-width);
+            height: 800px;
             border: none;
-            /* RECORTE SUPERIOR: Oculta el Hero/Banner de la web original */
-            margin-top: -150px; 
-            transform: scale(0.65); 
+            transform: scale(0.70);
             transform-origin: top left;
         }
 
-        .footer-info { padding: 10px; text-align: center; font-size: 0.8rem; opacity: 0.7; }
-        .brand { color: var(--primary); text-decoration: none; font-weight: bold; }
+        .footer-info {
+            margin-top: 30px;
+            padding: 0 16px 24px;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
 
-        /* AJUSTE PARA MÓVILES */
+        .brand {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* TABLET */
+        @media (min-width: 601px) and (max-width: 900px) {
+            .container {
+                max-width: 100%;
+                padding: 10px 12px;
+            }
+
+            .player-window {
+                height: 420px;
+            }
+
+            .player-window iframe {
+                top: -102px;
+                width: 1280px;
+                height: 830px;
+                transform: scale(0.58);
+            }
+        }
+
+        /* MOVIL */
         @media (max-width: 600px) {
-            .viewport-crop { height: 75vh; }
-            .player-window iframe { 
-                transform: scale(0.28); 
-                margin-top: -130px; 
-                width: 360%; 
+            header {
+                padding: 14px 10px;
+            }
+
+            .logo {
+                font-size: 1rem;
+                letter-spacing: 1.5px;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 8px 8px 12px;
+            }
+
+            .player-window {
+                height: 78vh;
+                min-height: 520px;
+                max-height: 760px;
+                border-radius: 14px;
+            }
+
+            .player-window iframe {
+                top: -78px;
+                left: 0;
+                width: 1280px;
+                height: 1180px;
+                transform: scale(0.305);
+                transform-origin: top left;
+            }
+
+            .footer-info {
+                margin-top: 22px;
+                font-size: 0.85rem;
+                padding-bottom: 20px;
+            }
+        }
+
+        /* MOVIL CHICO */
+        @media (max-width: 420px) {
+            .player-window {
+                height: 80vh;
+                min-height: 500px;
+                max-height: 700px;
+            }
+
+            .player-window iframe {
+                top: -72px;
+                width: 1280px;
+                height: 1220px;
+                transform: scale(0.286);
             }
         }
     </style>
@@ -108,26 +166,23 @@
 
     <header>
         <div class="logo">Ciborg 347 TV</div>
-        <button class="btn-inicio" onclick="window.location.reload()">Actualizar Lista</button>
     </header>
 
     <main class="container">
-        <div class="viewport-crop">
-            <div class="scroll-container">
-                <div class="player-window">
-                    <iframe 
-                        src="https://telefullhd.net/" 
-                        scrolling="yes" 
-                        allowfullscreen="true"
-                        sandbox="allow-scripts allow-same-origin allow-forms"
-                        title="Ciborg 347 TV">
-                    </iframe>
-                </div>
-            </div>
+        <div class="player-window">
+            <iframe 
+                src="https://telefullhd.net/tbs-en-vivo/" 
+                scrolling="no" 
+                allowfullscreen="true"
+                allow="autoplay; encrypted-media"
+                sandbox="allow-scripts allow-same-origin"
+                title="Ciborg 347 TV">
+            </iframe>
         </div>
     </main>
 
     <div class="footer-info">
+        <p>Trabajo creando y diseñando sitios web</p>
         <p>© 2026 - <a href="https://ciborg347oficial.onrender.com" class="brand">Ciborg 347</a></p>
     </div>
 
