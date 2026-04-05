@@ -9,84 +9,59 @@
         :root {
             --primary: #007bff;
             --bg: #0f172a;
-            --text: #f1f5f9;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--bg);
-            color: var(--text);
+            color: #f1f5f9;
             font-family: sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        header {
-            padding: 15px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .logo {
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+        header { padding: 15px; text-align: center; width: 100%; }
+        .logo { font-weight: bold; font-size: 1.2rem; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; }
 
         .container {
-            width: 95%;
-            max-width: 800px;
-            margin-top: 10px;
+            width: 100%;
+            max-width: 900px;
+            padding: 10px;
         }
 
-        /* ESTA ES LA MAGIA DEL RECORTE */
+        /* MARCO DEL REPRODUCTOR */
         .player-window {
-            width: 100%;
-            aspect-ratio: 16 / 9; /* Mantiene el formato video */
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden; /* Corta lo que sobra */
-            border: 1px solid rgba(255,255,255,0.1);
             position: relative;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            width: 100%;
+            height: 500px; /* Altura fija para controlar mejor el recorte */
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid rgba(0, 123, 255, 0.2);
+            box-shadow: 0 10px 50px rgba(0,0,0,0.7);
         }
 
         .player-window iframe {
             position: absolute;
-            /* Desplazamos el iframe hacia arriba para tapar el logo de la web */
-            top: -65px; 
+            /* RECORTE AGRESIVO HACIA ARRIBA */
+            top: -110px; 
             left: 0;
             width: 100%;
-            /* Le damos más altura para que el video no se corte abajo */
-            height: calc(100% + 120px); 
+            /* COMPENSACIÓN DE ALTURA */
+            height: 750px; 
             border: none;
         }
 
-        .channel-info {
-            margin-top: 20px;
-            text-align: center;
-        }
+        .footer-info { margin-top: 30px; text-align: center; font-size: 0.9rem; opacity: 0.7; }
+        .brand { color: var(--primary); text-decoration: none; font-weight: bold; }
 
-        footer {
-            margin-top: auto;
-            padding: 25px;
-            font-size: 0.85rem;
-            opacity: 0.7;
-        }
-
-        .brand-link {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: bold;
+        @media (max-width: 600px) {
+            .player-window { height: 280px; }
+            .player-window iframe { top: -95px; height: 500px; }
         }
     </style>
 </head>
@@ -102,20 +77,17 @@
                 src="https://telefullhd.net/tbs-en-vivo/" 
                 scrolling="no" 
                 allowfullscreen="true"
+                allow="autoplay; encrypted-media"
                 sandbox="allow-scripts allow-same-origin allow-forms"
                 title="Ciborg 347 TV">
             </iframe>
         </div>
-
-        <div class="channel-info">
-            <p>Señal en vivo - Simple y Profesional</p>
-        </div>
     </main>
 
-    <footer>
+    <div class="footer-info">
         <p>Trabajo creando y diseñando sitios web</p>
-        <p>© 2026 - <a href="https://ciborg347oficial.onrender.com" class="brand-link">Ciborg 347</a></p>
-    </footer>
+        <p>© 2026 - <a href="https://ciborg347oficial.onrender.com" class="brand">Ciborg 347</a></p>
+    </div>
 
 </body>
 </html>
