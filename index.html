@@ -34,7 +34,6 @@
             align-items: center;
         }
         
-        /* El nombre Ciborg 347 resaltado en color según tu preferencia */
         .logo { font-weight: bold; font-size: 1.2rem; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; }
 
         .btn-inicio {
@@ -52,17 +51,18 @@
         }
         .btn-inicio:active { transform: scale(0.95); }
 
+        /* AJUSTE: Contenedor un poco más ancho */
         .container {
             width: 100%;
-            max-width: 900px;
+            max-width: 1000px; 
             padding: 10px;
         }
 
-        /* MARCO DEL REPRODUCTOR PROFESIONAL */
+        /* MARCO DEL REPRODUCTOR - AJUSTADO UN POCO MÁS GRANDE */
         .player-window {
             position: relative;
             width: 100%;
-            height: 520px; 
+            height: 580px; /* Aumentado de 520px a 580px */
             background: #000;
             border-radius: 15px;
             overflow: hidden;
@@ -72,27 +72,25 @@
 
         .player-window iframe {
             position: absolute;
-            /* AJUSTE SOLICITADO: Subimos el recorte un pelito más */
             top: -105px; 
             left: 0;
             width: 1200px; 
-            height: 900px; 
+            height: 950px; 
             border: none;
-            transform: scale(0.75); 
+            /* Ajuste leve de escala para que llene el nuevo tamaño */
+            transform: scale(0.85); 
             transform-origin: top left;
         }
 
         .footer-info { margin-top: 30px; text-align: center; font-size: 0.9rem; opacity: 0.7; }
         .brand { color: var(--primary); text-decoration: none; font-weight: bold; }
 
-        /* AJUSTE PARA MÓVILES (100% RESPONSIVE Y CENTRADO) */
         @media (max-width: 600px) {
             .player-window { 
-                height: 260px; 
+                height: 280px; /* Un pelito más alto también en móvil */
             }
             .player-window iframe { 
                 transform: scale(0.315); 
-                /* Ajuste proporcional del top en móvil */
                 top: -95px; 
                 left: 0;
             }
